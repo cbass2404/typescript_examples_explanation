@@ -401,3 +401,53 @@ const {
     coords: { lat, lng },
 }: { coords: { lat: number, lng: number } } = profile;
 ```
+
+Typed Arrays
+
+-   arrays where each element is some consistent type of value
+
+```javascript
+const carMakers = ['ford', 'toyota', 'chevy']; // infers type by input
+const carMakers: string[] = []; // can not infer because nothing in it
+```
+
+Why do we care ?
+
+-   ts can do type inference when extracting values
+
+```javascript
+const carMakers: string[] = ['ford', 'toyota', 'chevy'];
+// help with inference when extracting values
+const car = carMakers[0];
+const myCar = carMakers.pop();
+```
+
+-   ts can prevent us from adding incompatible values from an array
+
+```javascript
+const carMakers: string[] = ['ford', 'toyota', 'chevy'];
+// prevent incompatible values
+carMakers.push(100);
+```
+
+-   we can get help with 'map', 'forEach', 'reduce' functions
+
+```javascript
+const carMakers: string[] = ['ford', 'toyota', 'chevy'];
+
+// help with 'map'
+carMakers.map((car: string): string => {
+    return car;
+});
+```
+
+-   flexible arrays can still contain multiple different types
+
+```javascript
+// Flexible types
+const importantDates: (Date | String)[] = [new Date(), '2030-10-10'];
+```
+
+When to use typed arrays
+
+-   any time we need to represent a collection of records with some arbitrary sort order
