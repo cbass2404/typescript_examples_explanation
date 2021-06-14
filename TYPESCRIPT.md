@@ -498,3 +498,105 @@ When to use this?
 -   it is usually better to stick with the convention of using objects so the values meaning is clear
 
 ## Interfaces
+
+-   interfaces + classes = how to get really strong code reuse in ts
+    -   interfaces
+        -   creates a new type, describing the property names and value types of an object
+
+```javascript
+interface Vehicle {
+    name: string;
+    year: number;
+    broken: boolean;
+}
+
+const oldCivic = {
+    name: 'civic',
+    year: 2000,
+    broken: true,
+};
+
+// without interface
+const printVehicle = (vehicle: {
+    name: string,
+    year: number,
+    broken: boolean,
+}): void => {
+    console.log(`Name: ${vehicle.name}`);
+    console.log(`Year: ${vehicle.year}`);
+    console.log(`Broken? ${vehicle.broken}`);
+};
+
+// with interface
+const printVehicle = (vehicle: Vehicle): void => {
+    console.log(`Name: ${vehicle.name}`);
+    console.log(`Year: ${vehicle.year}`);
+    console.log(`Broken? ${vehicle.broken}`);
+};
+```
+
+Syntax
+
+```javascript
+interface Vehicle {
+    name: string;
+    year: Date;
+    broken: boolean;
+    summary(): string; // used to tell ts it has a function that returns string
+}
+
+const oldCivic = {
+    name: 'civic',
+    year: new Date(),
+    broken: true,
+    summary(): string {
+        return `Name: ${this.name}`;
+    },
+};
+```
+
+_you only have to specify the properties you are using_
+
+```javascript
+interface Reportable {
+    summary(): string;
+}
+
+const oldCivic = {
+    name: 'civic',
+    year: new Date(),
+    broken: true,
+    summary(): string {
+        return `Name: ${this.name}`;
+    },
+};
+
+const printSummary = (item: Reportable): void => {
+    console.log(item.summary());
+};
+
+printSummary(oldCivic);
+```
+
+_generic names and vague types allow you to reuse interfaces for multiple data structures as seen by the comparison above and below this note_
+
+```javascript
+interface Reportable {
+    summary(): string;
+}
+
+const drink = {
+    color: 'brown',
+    carbonated: true,
+    super: 40,
+    summary(): string {
+        return `My drink has ${this.sugar} grams of sugar`;
+    },
+};
+
+const printSummary = (item: Reportable): void => {
+    console.log(item.summary());
+};
+
+printSummary(drink);
+```
