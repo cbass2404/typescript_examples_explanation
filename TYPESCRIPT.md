@@ -1,4 +1,4 @@
-### A repository containing many examples of how to appropriately use Typescript.
+## A repository containing many examples of how to appropriately use Typescript.
 
 ---
 
@@ -20,7 +20,7 @@ _To have a file watched and auto compiled on save use:_
 $ tsc fileName.js -w
 ```
 
-### tsconfig.json instructions
+## tsconfig.json instructions
 
 ```
 $ tsc --init
@@ -213,7 +213,7 @@ To add types to functions do the following:
 };
 ```
 
-### Syntax + Features vs Design Patterns with TS
+## Syntax + Features vs Design Patterns with TS
 
 ---
 
@@ -325,6 +325,8 @@ Type Inference
 -   If declaration and initialization are on the same line, Typescript will figure out the type of 'color' for us
 -   Always use it
 
+## Functions
+
 Annotations around functions
 
 -   type annotations for functions
@@ -380,6 +382,8 @@ _variables will default to any, which should be avoided at all costs_
 _void type is for when the function returns no value at all_
 
 _never type is used for when you NEVER expect a function to complete to a return_
+
+## Objects
 
 Annotations around objects and destructuring objects:
 
@@ -451,3 +455,46 @@ const importantDates: (Date | String)[] = [new Date(), '2030-10-10'];
 When to use typed arrays
 
 -   any time we need to represent a collection of records with some arbitrary sort order
+
+## Tuples
+
+Overview
+
+-   array-like structure where each element represents some property of a record with a fixed location inside the tuple
+
+Examples
+
+```javascript
+const drink = {
+    color: 'brown',
+    carbonated: true,
+    sugar: 40,
+};
+
+// creates a new tuple structure type
+type Drink = [string, boolean, number];
+
+const pepsi: [string, boolean, number] = ['brown', true, 40];
+const sprite: Drink = ['clear', true, 30];
+```
+
+_the order of the types tells it to be a tuple with fixed spots for each type_
+
+Why do we care?
+
+-   they aren't really clear on what they mean
+
+```javascript
+const carSpecs: [number, number] = [400, 3354];
+
+const carStats = {
+    horsepower: 400,
+    weight: 3354,
+};
+```
+
+When to use this?
+
+-   it is usually better to stick with the convention of using objects so the values meaning is clear
+
+## Interfaces
