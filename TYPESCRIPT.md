@@ -600,3 +600,122 @@ const printSummary = (item: Reportable): void => {
 
 printSummary(drink);
 ```
+
+## Classes
+
+-   blueprint to create an object with some fields(values) and methods(functions) to represent a 'thing'
+
+```javascript
+class Vehicle {
+    drive(): void {
+        console.log('chugga chugga');
+    }
+
+    honk(): void {
+        console.log('beep');
+    }
+}
+
+const vehicle = new Vehicle();
+
+vehicle.drive();
+vehicle.honk();
+```
+
+Basic Inheritance
+
+```javascripclass Car extends Vehicle {
+    constructor() {
+        super();
+    }
+
+    drive(): void { // can overwrite the method of the parent class
+        console.log('Vroom');
+    }
+}
+
+const car = new Car();
+car.drive();
+car.honk();
+```
+
+Instance Method Modifiers
+
+-   public
+    -   this method can be called anywhere, any time
+
+```javascript
+public drive(): void{
+    console.log('vroom')
+}
+```
+
+-   private
+    -   this method can only be called by other methods in 'this' class
+
+```javascript
+private drive(): void {
+    console.log('vroom')
+}
+```
+
+-   protected
+    -   this method can be called by other methods in 'this' class, or by other methods in child classes
+
+```javascript
+protected drive(): void {
+    console.log('vroom')
+}
+```
+
+Fields
+
+```javascript
+class Vehicle {
+    // color: string;
+    // constructor(color: string) {
+    //     this.color = color;
+    // }
+        constructor(public color: string) {} // shorter syntax of above code
+
+    public drive(): void {
+        console.log('chugga chugga');
+    }
+
+    protected honk(): void {
+        console.log('beep');
+    }
+}
+
+const vehicle = new Vehicle('orange');
+```
+
+-   public allows the variable to be seen anywhere
+-   private makes it uncallable outside the class
+-   protected makes the variable uncallable outside the class and children
+
+-   fixing the children like below
+
+```javascript
+class Car extends Vehicle {
+    constructor(public wheels: number, color: string) {
+        super(color);
+    }
+
+    public drive(): void {
+        // can overwrite the method of the parent class but modifier type 'private' 'public' 'protected' must match
+        console.log('Vroom');
+    }
+
+    startDrivingProcess(): void {
+        this.drive();
+        this.honk();
+    }
+}
+
+const car = new Car(4, 'orange');
+```
+
+Why we care?
+
+-   interfaces + classes = how we get really strong code reuse in TS
